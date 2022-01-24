@@ -11,7 +11,7 @@ const ProfileForm = () => {
   const submitHandler = (event) => {
     event.preventDefault();
     const enteredPassword = passwordRef.current.value;
-    fetch("https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyD7iqTsrcAO9-tVF5Hj1iSqkcot1OvhuK0", {
+    fetch(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${process.env.REACT_APP_API_KEY}`, {
       method: 'POST',
       body: JSON.stringify({
         idToken: authCtx.token,

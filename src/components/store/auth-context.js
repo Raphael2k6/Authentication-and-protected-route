@@ -47,7 +47,7 @@ export const AuthContextProvider = (props) => {
     const logoutHandler = useCallback(() => {
         setToken(null)
         localStorage.removeItem("token");
-        localStorage.removeItem("expirationTime")
+        localStorage.removeItem("expirationTime");
        
         if (logoutTimer) {
             clearTimeout(logoutTimer)
@@ -58,7 +58,7 @@ export const AuthContextProvider = (props) => {
         setToken(token);
 
         localStorage.setItem("token", token);
-        localStorage.setItem("expirationTime", expirationTime)
+        localStorage.setItem("expirationTime", expirationTime);
 
         const remainingTime = calculateRemainingTime(expirationTime);
         logoutTimer = setTimeout(logoutHandler, remainingTime);

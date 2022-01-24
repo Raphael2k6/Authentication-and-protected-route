@@ -23,9 +23,9 @@ const AuthForm = () => {
     setIsLoading(true)
     let url;
     if(isLogin) {
-      url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD7iqTsrcAO9-tVF5Hj1iSqkcot1OvhuK0"
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_API_KEY}`
     } else {
-      url = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyD7iqTsrcAO9-tVF5Hj1iSqkcot1OvhuK0"
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_API_KEY}`
     }
     fetch(url, {
       method: 'POST',
@@ -43,7 +43,6 @@ const AuthForm = () => {
         return res.json();
       } else {
         return res.json().then(data => {
-          console.log({data})
           let errorMessage = 'Authentication failed';
           // if (data && data.error && data.error.message) {
           //   errorMessage = data.error.message
@@ -53,9 +52,7 @@ const AuthForm = () => {
       }
     })
     .then(data => {
-      console.log(data, "data")
       const expirationTime = new Date((new Date().getTime()) * 1000);
-      console.log("time value", expirationTime);
       authCxt.login(data.idToken, expirationTime.toISOString());
       history.replace("/");
     })
@@ -71,7 +68,6 @@ const AuthForm = () => {
           <label htmlFor='email'>Your Email</label>
           <input type='email' id='email' required ref={emailInputRef}/>
         </div>
-        {console.log("check login state,", isLogin)}
         <div className={classes.control}>
           <label htmlFor='password'>Your Password</label>
           <input type='password' id='password' required ref={passwordInputRef} />
